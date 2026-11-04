@@ -17,3 +17,8 @@ To bundle into a single self-contained `index.html`:
 ```bash
 python build.py
 ```
+
+## iPhone / iPad
+- Responsive layout with a proper viewport, safe-area (notch) padding and 44px touch targets.
+- In Safari: Share → **Add to Home Screen** to open it full-screen like an app (icon: `apple-touch-icon.png`).
+- Progress is stored per browser, so Safari and the Home Screen app keep separate progress.
