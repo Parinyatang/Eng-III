@@ -1,0 +1,853 @@
+<title>English III Final Drill</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
+
+<style>
+/* Layout: single reading column (max 1040px) under a sticky tab bar; practice and mock
+   take over the column, everything else is stacked bands of cards. */
+:root{
+  --paper:#f6f5f0; --surface:#fffefb; --raise:#efeee7;
+  --ink:#1b2320; --muted:#5e6b64; --line:#dcdbd1;
+  --accent:#0f6b5c; --accent-ink:#0b4e43; --accent-soft:#e0eee9;
+  --on-accent:#fffefb;
+  --ok:#2d7a4f; --ok-soft:#dff0e4; --bad:#b1392f; --bad-soft:#f8e3e0; --warn:#9a6212;
+  --display:"Bai Jamjuree","IBM Plex Sans Thai",system-ui,sans-serif;
+  --body:"IBM Plex Sans Thai","Bai Jamjuree",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --r:10px; --shadow:0 1px 2px rgba(27,35,32,.06),0 8px 24px -16px rgba(27,35,32,.25);
+  --fs:17px;        /* ปรับได้จากปุ่ม A- / A+ บนหัวหน้า */
+  --measure:66ch;   /* ความกว้างบรรทัดสูงสุดของข้อความที่ต้องอ่านจริง */
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#10151a; --surface:#182026; --raise:#202a31;
+  --ink:#e7eae6; --muted:#97a5a0; --line:#2b363d;
+  --accent:#4fd1b2; --accent-ink:#9fe8d6; --accent-soft:#14312c; --on-accent:#07120f;
+  --ok:#5fc389; --ok-soft:#17301f; --bad:#f08b7f; --bad-soft:#32191a; --warn:#d9a047;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -18px rgba(0,0,0,.8);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#10151a; --surface:#182026; --raise:#202a31;
+  --ink:#e7eae6; --muted:#97a5a0; --line:#2b363d;
+  --accent:#4fd1b2; --accent-ink:#9fe8d6; --accent-soft:#14312c; --on-accent:#07120f;
+  --ok:#5fc389; --ok-soft:#17301f; --bad:#f08b7f; --bad-soft:#32191a; --warn:#d9a047;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -18px rgba(0,0,0,.8);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:var(--fs);line-height:1.78;margin:0;-webkit-text-size-adjust:100%}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.3;text-wrap:balance;margin:0}
+p{margin:0;overflow-wrap:break-word}
+/* ข้อความที่ต้องอ่านเป็นประโยคยาวถูกจำกัดความกว้าง ส่วนตาราง/กริดยังกว้างได้เต็มที่ */
+.card p,.card li,.prose{max-width:var(--measure)}
+.card li{margin-bottom:2px}
+body.hide-th .thai,body.hide-th .qth{display:none}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* ---- top bar ---- */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topin{display:flex;align-items:center;gap:12px;padding-block:10px;flex-wrap:wrap}
+.brand{font-family:var(--display);font-weight:700;font-size:1.02rem;letter-spacing:-.01em;display:flex;align-items:baseline;gap:8px}
+.brand small{font-family:var(--body);font-weight:500;font-size:.72rem;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.spacer{flex:1 1 auto}
+.tabs{display:flex;gap:4px;overflow-x:auto;padding-block:8px;margin:0;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;appearance:none;border:1px solid transparent;background:transparent;color:var(--muted);font-family:var(--body);font-weight:500;font-size:.9rem;padding:6px 12px;border-radius:999px;cursor:pointer}
+.tab:hover{color:var(--ink);background:var(--raise)}
+.tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.iconbtn{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:8px;width:34px;height:34px;cursor:pointer;font-size:15px;line-height:1;font-family:var(--body)}
+.iconbtn:hover{color:var(--ink);border-color:var(--accent)}
+.iconbtn:disabled{opacity:.4;cursor:default}
+.iconbtn.txt{width:auto;padding:0 11px;font-size:.84rem;font-weight:500}
+.iconbtn[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-ink)}
+.toolbar{display:flex;gap:6px;align-items:center}
+
+main{padding-block:22px 72px}
+section.view{display:grid;gap:18px}
+
+/* ---- generic blocks ---- */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+@media (max-width:560px){.card{padding:16px}}
+.card.pad0{padding:0;overflow:hidden}
+.eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.lead{color:var(--muted);font-size:.96rem;line-height:1.8}
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr))}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:var(--body);font-size:.85rem;padding:5px 11px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-ink)}
+.btn{appearance:none;border:1px solid var(--accent);background:var(--accent);color:var(--on-accent);font-family:var(--display);font-weight:600;font-size:.95rem;padding:10px 16px;border-radius:9px;cursor:pointer}
+.btn.ghost{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent-ink)}
+.btn:disabled{opacity:.45;cursor:default}
+.badge{display:inline-block;font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:5px;background:var(--raise);color:var(--muted)}
+.badge.ac{background:var(--accent-soft);color:var(--accent-ink)}
+table{width:100%;border-collapse:collapse;font-size:.93rem}
+th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.72}
+tbody tr:nth-child(even){background:color-mix(in srgb,var(--raise) 50%,transparent)}
+th{font-family:var(--display);font-weight:600;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+.scroll{overflow-x:auto}
+.note{border-left:3px solid var(--accent);background:var(--accent-soft);color:var(--accent-ink);padding:10px 12px;border-radius:0 8px 8px 0;font-size:.9rem}
+.trap{border-left:3px solid var(--bad);background:var(--bad-soft);color:var(--ink);padding:10px 12px;border-radius:0 8px 8px 0;font-size:.9rem}
+.trap b{color:var(--bad)}
+
+/* ---- exam map bar ---- */
+.mapbar{display:flex;height:34px;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.mapbar div{display:grid;place-items:center;font-family:var(--mono);font-size:.78rem;font-weight:600;padding-inline:4px;text-align:center}
+.mapbar .s0{background:var(--accent);color:var(--on-accent)}
+.mapbar .s1{background:color-mix(in srgb,var(--accent) 55%,var(--paper));color:var(--accent-ink)}
+.mapbar .s2{background:color-mix(in srgb,var(--accent) 25%,var(--paper));color:var(--accent-ink)}
+.stat{display:grid;gap:2px}
+.stat b{font-family:var(--mono);font-size:1.5rem;font-weight:600;letter-spacing:-.02em}
+.stat span{font-size:.8rem;color:var(--muted)}
+.meter{height:6px;border-radius:999px;background:var(--raise);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--accent)}
+
+/* ---- flashcards ---- */
+.fc{min-height:210px;display:grid;gap:10px;align-content:center;text-align:center;cursor:pointer;position:relative}
+.fc .word{font-family:var(--display);font-size:1.9rem;font-weight:700;letter-spacing:-.02em}
+.fc .pos{font-style:italic;color:var(--muted);font-size:.9rem}
+.fc .en{font-size:1rem}
+.fc .th{color:var(--accent-ink);font-weight:600}
+.fc .pat{font-family:var(--mono);font-size:.84rem;background:var(--raise);border-radius:6px;padding:4px 8px;display:inline-block}
+.fc .ex{font-size:.9rem;color:var(--muted);max-width:52ch;margin-inline:auto}
+.fc .hintflip{position:absolute;right:0;bottom:-2px;font-size:.72rem;color:var(--muted)}
+
+/* ---- quiz ---- */
+.qmeta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:.8rem;color:var(--muted)}
+.qtext{font-size:1.16rem;font-weight:500;line-height:1.65;margin-top:12px;max-width:var(--measure)}
+.qth{color:var(--muted);font-size:.95rem;line-height:1.75;margin-top:6px;max-width:var(--measure)}
+.opts{display:grid;gap:9px;margin-top:18px;max-width:var(--measure)}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:var(--body);font-size:1.03rem;line-height:1.6;padding:13px 15px;border-radius:9px;cursor:pointer;min-width:0}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt kbd{font-family:var(--mono);font-size:.8rem;font-weight:600;background:var(--raise);border-radius:5px;padding:1px 6px;flex:0 0 auto}
+.opt[data-s="pick"]{border-color:var(--accent);background:var(--accent-soft)}
+.opt[data-s="ok"]{border-color:var(--ok);background:var(--ok-soft)}
+.opt[data-s="bad"]{border-color:var(--bad);background:var(--bad-soft)}
+.opt span{min-width:0;overflow-wrap:anywhere}
+.explain{margin-top:18px;display:grid;gap:12px;border-top:1px dashed var(--line);padding-top:14px;max-width:var(--measure)}
+.explain .k{font-size:.72rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.verdict{font-family:var(--display);font-weight:700}
+.verdict.ok{color:var(--ok)}.verdict.bad{color:var(--bad)}
+.pager{display:flex;gap:8px;justify-content:space-between;align-items:center;margin-top:16px;flex-wrap:wrap}
+.sheet{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px}
+.sheet button{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--muted);font-family:var(--mono);font-size:.8rem;padding:7px 0;border-radius:7px;cursor:pointer}
+.sheet button[data-done="1"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-ink)}
+.sheet button[aria-current="true"]{outline:2px solid var(--accent);outline-offset:1px}
+.sheet button[data-res="ok"]{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.sheet button[data-res="bad"]{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.timer{font-family:var(--mono);font-size:1rem;font-weight:600}
+.timer[data-low="1"]{color:var(--bad)}
+.passage{background:var(--raise);border-radius:8px;padding:18px;font-size:1.04rem;line-height:1.95;display:grid;gap:18px}
+@media (max-width:560px){.passage{padding:14px;gap:14px}}
+.passage>div{max-width:var(--measure)}
+.passage p{max-width:none}
+.passage .pnum{float:left;margin:.32em .6em 0 0;font-family:var(--mono);font-size:.68rem;font-weight:600;color:var(--accent-ink);background:var(--accent-soft);border-radius:4px;padding:1px 6px}
+.passage .thai{color:var(--muted);font-size:.9rem;line-height:1.8;margin-top:8px;padding-left:12px;border-left:2px solid var(--line)}
+.passage ul{margin:8px 0 0;padding-left:20px}
+.passage li{margin-bottom:4px}
+.passage table{margin-bottom:4px}
+mark{background:color-mix(in srgb,var(--accent) 20%,transparent);color:inherit;border-radius:4px;padding:1px 3px;box-shadow:inset 0 -2px 0 color-mix(in srgb,var(--accent) 50%,transparent)}
+details>summary{cursor:pointer;font-size:.88rem;color:var(--accent-ink);font-weight:600;padding:7px 10px;background:var(--accent-soft);border-radius:7px;display:inline-block}
+details[open]>summary{margin-bottom:4px}
+.verdict{font-size:1.04rem}
+footer.foot{line-height:1.9}
+.unitpill{font-family:var(--mono);font-size:.72rem;border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:var(--muted)}
+footer.foot{border-top:1px solid var(--line);margin-top:28px;padding-block:16px;color:var(--muted);font-size:.82rem}
+a{color:var(--accent-ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:no-preference){.view{animation:in .18s ease-out}@keyframes in{from{opacity:.4}to{opacity:1}}}
+</style>
+
+<header class="top">
+  <div class="wrap topin">
+    <div class="brand">LI102003 <span>English III</span> <small>Final drill · B1+</small></div>
+    <div class="spacer"></div>
+    <div class="toolbar">
+      <button class="iconbtn" id="fsdown" title="ลดขนาดตัวอักษร" aria-label="ลดขนาดตัวอักษร">A−</button>
+      <button class="iconbtn" id="fsup" title="เพิ่มขนาดตัวอักษร" aria-label="เพิ่มขนาดตัวอักษร">A+</button>
+      <button class="iconbtn txt" id="thbtn" title="แสดงหรือซ่อนคำแปลไทยในบทอ่านและโจทย์">คำแปลไทย</button>
+      <button class="iconbtn" id="themebtn" title="สลับโหมดสว่าง/มืด" aria-label="สลับธีม">◐</button>
+    </div>
+  </div>
+  <div class="wrap"><div class="tabs" role="tablist" id="tabs"></div></div>
+</header>
+
+<main class="wrap"><div id="app"></div></main>
+
+<footer class="wrap foot">
+  เนื้อหาทั้งหมดอ้างจาก <b>LI102003 English III — Final Examination Tutorial Pack (B1+)</b> รวบรวมโดย Ajarn JAN ·
+  ข้อฝึกที่ติดป้าย <span class="badge">extra</span> เขียนเพิ่มในแนวเดียวกันเพื่อให้ฝึกซ้ำได้ ·
+  ความก้าวหน้าเก็บไว้ในเบราว์เซอร์เครื่องนี้เท่านั้น
+</footer>
+
+<script src="data.js"></script>
+<script src="data-extra.js"></script>
+<script src="data-evidence.js"></script>
+<script>
+(function(){
+"use strict";
+var P = window.PACK, Q = P.questions, app = document.getElementById("app");
+
+/* ---------- storage ---------- */
+var KEY = "li102003.v1";
+var S = {stats:{}, known:{}, mocks:[], tab:"home", recent:{}, recentP:{}, fs:1, thai:true};
+try{ var raw = localStorage.getItem(KEY); if(raw) S = Object.assign(S, JSON.parse(raw)); }catch(e){}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]; }); }
+function stat(id){ return S.stats[id] || {ok:0,no:0}; }
+function record(id, right){ var s = stat(id); s[right?"ok":"no"]++; S.stats[id]=s; save(); }
+
+/* ---------- helpers ---------- */
+function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; } return a; }
+/* สลับตำแหน่งตัวเลือกทุกครั้งที่หยิบข้อมาทำ เพื่อไม่ให้คำตอบไปกองอยู่ที่ตัวเลือกเดียว */
+function withShuffledChoices(q){
+  var order = shuffle(q.c.map(function(_,i){ return i; })), copy = {};
+  for(var k in q) copy[k] = q[k];
+  copy.c = order.map(function(i){ return q.c[i]; });
+  copy.a = order.indexOf(q.a);
+  return copy;
+}
+function byTopic(t){ return Q.filter(function(q){ return q.topic===t; }); }
+function reading(id){ return P.readings.filter(function(r){ return r.id===id; })[0]; }
+function secLabel(k){ return k==="vocab"?"Vocabulary":k==="grammar"?"Grammar":"Reading"; }
+var TOPICS = {
+  ability:"Ability & Achievement", sport:"Words Connected with Sport", cause:"Cause & Result", difficulty:"Talking about Difficulty",
+  mwv:"Multi-word Verbs", perfect:"Present Perfect / Continuous", usedto:"Used to & Would", obligation:"Obligation & Permission"
+};
+P.readings.forEach(function(r){ TOPICS[r.id] = r.title; });
+
+/* ---------- tabs ---------- */
+var VIEWS = [
+  {id:"home", label:"ภาพรวม"},
+  {id:"vocab", label:"คำศัพท์"},
+  {id:"grammar", label:"ไวยากรณ์"},
+  {id:"reading", label:"การอ่าน"},
+  {id:"drill", label:"ฝึกทำข้อ"},
+  {id:"mock", label:"สอบจำลอง 80 ข้อ"}
+];
+var tabs = document.getElementById("tabs");
+tabs.innerHTML = VIEWS.map(function(v){ return '<button class="tab" role="tab" id="tab-'+v.id+'" data-v="'+v.id+'">'+v.label+'</button>'; }).join("");
+tabs.addEventListener("click", function(e){ var b = e.target.closest(".tab"); if(b) go(b.dataset.v); });
+function go(v){ S.tab=v; save(); tabs.querySelectorAll(".tab").forEach(function(t){ t.setAttribute("aria-selected", String(t.dataset.v===v)); });
+  ({home:renderHome, vocab:renderVocab, grammar:renderGrammar, reading:renderReading, drill:renderDrill, mock:renderMock})[v]();
+  window.scrollTo({top:0, behavior:"instant"});
+}
+
+document.getElementById("themebtn").addEventListener("click", function(){
+  var r = document.documentElement, cur = r.getAttribute("data-theme");
+  var dark = cur ? cur==="dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  r.setAttribute("data-theme", dark?"light":"dark");
+});
+
+/* ---------- การอ่าน: ขนาดตัวอักษร + คำแปลไทย ---------- */
+var SIZES = [15.5, 17, 18.5, 20.5];
+function applyPrefs(){
+  if(!(S.fs>=0 && S.fs<SIZES.length)) S.fs = 1;
+  document.documentElement.style.setProperty("--fs", SIZES[S.fs]+"px");
+  document.body.classList.toggle("hide-th", !S.thai);
+  document.getElementById("fsdown").disabled = S.fs===0;
+  document.getElementById("fsup").disabled = S.fs===SIZES.length-1;
+  document.getElementById("thbtn").setAttribute("aria-pressed", String(!!S.thai));
+}
+document.getElementById("fsdown").addEventListener("click", function(){ if(S.fs>0){ S.fs--; save(); applyPrefs(); } });
+document.getElementById("fsup").addEventListener("click", function(){ if(S.fs<SIZES.length-1){ S.fs++; save(); applyPrefs(); } });
+document.getElementById("thbtn").addEventListener("click", function(){ S.thai=!S.thai; save(); applyPrefs(); });
+applyPrefs();
+
+/* =========================================================
+   HOME
+   ========================================================= */
+function overall(){
+  var done=0, ok=0;
+  Q.forEach(function(q){ var s=stat(q.id); if(s.ok+s.no>0){ done++; if(s.ok>0 && s.ok>=s.no) ok++; } });
+  return {done:done, ok:ok, total:Q.length};
+}
+function topicScore(t){
+  var qs = byTopic(t), a=0, n=0;
+  qs.forEach(function(q){ var s=stat(q.id); a+=s.ok; n+=s.ok+s.no; });
+  return {pct: n? Math.round(a/n*100):null, tried:n, size:qs.length};
+}
+function renderHome(){
+  var o = overall(), last = S.mocks[S.mocks.length-1];
+  var weak = Object.keys(TOPICS).map(function(t){ var s=topicScore(t); return {t:t, s:s}; })
+    .filter(function(x){ return x.s.tried>=3 && x.s.pct!==null; }).sort(function(a,b){ return a.s.pct-b.s.pct; }).slice(0,3);
+
+  app.innerHTML =
+  '<section class="view">'+
+    '<div class="card">'+
+      '<p class="eyebrow">แผนที่ข้อสอบปลายภาค</p>'+
+      '<h1 style="font-size:1.6rem;margin-top:6px">ข้อสอบปรนัย 80 ข้อ = 30% ของวิชา</h1>'+
+      '<p class="lead" style="margin-top:6px">เรียงตามหน่วยและลำดับทักษะ: คำศัพท์ → ไวยากรณ์ → การอ่าน · ตัด Listening และ Writing ออกจากขอบเขต</p>'+
+      '<div class="mapbar" style="margin-top:14px">'+ P.meta.weights.map(function(w,i){
+        return '<div class="s'+i+'" style="flex:'+w.items+'">'+w.label+' '+w.items+'</div>'; }).join("")+'</div>'+
+      '<ul class="lead" style="margin-top:12px;padding-left:18px;display:grid;gap:4px">'+
+        P.meta.rules.map(function(r){ return '<li>'+esc(r)+'</li>'; }).join("")+'</ul>'+
+    '</div>'+
+
+    '<div class="grid g3">'+
+      '<div class="card stat"><b class="num">'+o.done+'/'+o.total+'</b><span>ข้อที่เคยทำแล้วในคลัง</span>'+
+        '<div class="meter" style="margin-top:6px"><i style="width:'+Math.round(o.done/o.total*100)+'%"></i></div></div>'+
+      '<div class="card stat"><b class="num">'+(o.done? Math.round(o.ok/o.done*100):0)+'%</b><span>ข้อที่ตอบถูกเป็นหลัก</span></div>'+
+      '<div class="card stat"><b class="num">'+(last? last.score+'/'+last.total : "—")+'</b><span>'+(last? 'สอบจำลองล่าสุด · '+last.date : 'ยังไม่เคยสอบจำลอง')+'</span></div>'+
+    '</div>'+
+
+    (weak.length ? '<div class="card"><p class="eyebrow">หัวข้อที่ควรซ่อมก่อน</p><div class="grid g3" style="margin-top:10px">'+
+      weak.map(function(x){ return '<div><div class="row" style="justify-content:space-between"><b style="font-family:var(--display)">'+esc(TOPICS[x.t])+'</b><span class="num" style="color:var(--bad)">'+x.s.pct+'%</span></div>'+
+      '<div class="meter" style="margin-top:6px"><i style="width:'+x.s.pct+'%;background:var(--bad)"></i></div>'+
+      '<button class="btn ghost" style="margin-top:8px;font-size:.85rem;padding:7px 12px" data-topic="'+x.t+'">ฝึกหัวข้อนี้</button></div>'; }).join("")+
+      '</div></div>' : '')+
+
+    '<div class="card"><p class="eyebrow">เริ่มเร็ว</p><div class="row" style="margin-top:10px">'+
+      '<button class="btn" data-quick="mixed">ชุดคละ 20 ข้อ</button>'+
+      '<button class="btn ghost" data-quick="wrong">ทบทวนข้อที่เคยผิด</button>'+
+      '<button class="btn ghost" data-quick="mock">สอบจำลองเต็มรูปแบบ</button>'+
+    '</div></div>'+
+
+    '<div class="card pad0"><div style="padding:16px 16px 0"><p class="eyebrow">ขอบเขต 4 หน่วย</p></div>'+
+      '<div class="scroll"><table style="margin-top:8px"><thead><tr><th>Unit</th><th>Vocabulary</th><th>Grammar</th><th>Reading</th><th>หน้าหนังสือ</th></tr></thead><tbody>'+
+      P.meta.scope.map(function(u){ return '<tr><td><span class="badge ac">'+u.unit+'</span><div class="lead" style="font-size:.82rem;margin-top:4px">'+esc(u.title)+'</div></td>'+
+        '<td>'+esc(u.vocab)+'</td><td>'+esc(u.grammar)+'</td><td>'+esc(u.reading)+'</td><td class="lead" style="font-size:.82rem">'+esc(u.pages)+'</td></tr>'; }).join("")+
+      '</tbody></table></div></div>'+
+
+    '<div class="card"><p class="eyebrow">เช็ก 3 จุดก่อนฝนคำตอบ</p>'+
+      '<div class="grid g3" style="margin-top:10px">'+
+      '<div><b style="font-family:var(--display)">1 · Meaning</b><p class="lead">ความหมายตรงกับที่โจทย์ต้องการไหม</p></div>'+
+      '<div><b style="font-family:var(--display)">2 · Form</b><p class="lead">ชนิดคำและโครงสร้างถูกไหม (ความหมายถูกแต่รูปผิด = ผิด)</p></div>'+
+      '<div><b style="font-family:var(--display)">3 · Evidence</b><p class="lead">ถ้าเป็น Reading หลักฐานอยู่ประโยคไหน</p></div>'+
+      '</div></div>'+
+  '</section>';
+
+  app.querySelectorAll("[data-quick]").forEach(function(b){ b.addEventListener("click", function(){
+    var k=b.dataset.quick;
+    if(k==="mock"){ go("mock"); return; }
+    go("drill");
+    setTimeout(function(){ k==="wrong" ? startWrongSet() : startDrill(buildDrill()); }, 0);
+  }); });
+  app.querySelectorAll("[data-topic]").forEach(function(b){ b.addEventListener("click", function(){
+    drillFilter = {sec:"all", topics:[b.dataset.topic], count:0};
+    go("drill"); setTimeout(function(){ startDrill(buildDrill()); },0);
+  }); });
+}
+
+/* =========================================================
+   VOCABULARY
+   ========================================================= */
+var vocabSet = 0, vocabMode = "cards", fcIdx = 0, fcBack = false, fcOrder = null;
+function renderVocab(){
+  var set = P.vocab[vocabSet];
+  app.innerHTML =
+  '<section class="view">'+
+    '<div class="card">'+
+      '<p class="eyebrow">Vocabulary · 30 ข้อในข้อสอบ</p>'+
+      '<h1 style="font-size:1.35rem;margin-top:6px">'+esc(set.title)+' <span class="unitpill">Unit '+set.unit+'</span></h1>'+
+      '<p class="lead" style="margin-top:4px">'+esc(set.th)+'</p>'+
+      '<div class="row" style="margin-top:12px">'+ P.vocab.map(function(v,i){
+        return '<button class="chip" aria-pressed="'+(i===vocabSet)+'" data-set="'+i+'">'+v.unit+' · '+esc(v.title)+'</button>'; }).join("")+'</div>'+
+      '<div class="row" style="margin-top:8px">'+
+        '<button class="chip" aria-pressed="'+(vocabMode==="cards")+'" data-mode="cards">แฟลชการ์ด</button>'+
+        '<button class="chip" aria-pressed="'+(vocabMode==="list")+'" data-mode="list">ดูทั้งชุด</button>'+
+        '<button class="btn ghost" style="font-size:.85rem;padding:6px 12px" data-practice="'+set.id+'">ทำข้อฝึกชุดนี้</button>'+
+      '</div>'+
+    '</div>'+
+    (vocabMode==="cards" ? fcHTML(set) : listHTML(set))+
+    '<div class="card"><div class="note">'+esc(set.note)+'</div>'+
+      (set.tables||[]).map(function(t){ return '<div class="scroll" style="margin-top:12px"><table><thead><tr>'+
+        t.head.map(function(h){ return '<th>'+esc(h)+'</th>'; }).join("")+'</tr></thead><tbody>'+
+        t.rows.map(function(r){ return '<tr>'+r.map(function(c){ return '<td>'+esc(c)+'</td>'; }).join("")+'</tr>'; }).join("")+
+        '</tbody></table></div>'; }).join("")+
+      set.traps.map(function(t){ return '<div class="trap" style="margin-top:10px"><b>จุดหลอก:</b> '+esc(t)+'</div>'; }).join("")+
+    '</div>'+
+  '</section>';
+
+  app.querySelectorAll("[data-set]").forEach(function(b){ b.addEventListener("click", function(){ vocabSet=+b.dataset.set; fcIdx=0; fcBack=false; fcOrder=null; renderVocab(); }); });
+  app.querySelectorAll("[data-mode]").forEach(function(b){ b.addEventListener("click", function(){ vocabMode=b.dataset.mode; renderVocab(); }); });
+  app.querySelectorAll("[data-practice]").forEach(function(b){ b.addEventListener("click", function(){
+    drillFilter = {sec:"all", topics:[b.dataset.practice], count:0};
+    go("drill"); setTimeout(function(){ startDrill(buildDrill()); },0);
+  }); });
+
+  var fc = app.querySelector(".fc");
+  if(fc){
+    fc.addEventListener("click", function(){ fcBack=!fcBack; renderVocab(); });
+    app.querySelectorAll("[data-fc]").forEach(function(b){ b.addEventListener("click", function(e){
+      e.stopPropagation();
+      var k=b.dataset.fc, order=fcOrderFor(set);
+      if(k==="known"){ S.known[order[fcIdx].w]=1; save(); }
+      if(k==="again"){ delete S.known[order[fcIdx].w]; save(); }
+      if(k==="prev"){ fcIdx=(fcIdx-1+order.length)%order.length; } else { fcIdx=(fcIdx+1)%order.length; }
+      fcBack=false; renderVocab();
+    }); });
+  }
+}
+function fcOrderFor(set){ if(!fcOrder || fcOrder.set!==set.id){ fcOrder = shuffle(set.items); fcOrder.set=set.id; } return fcOrder; }
+function fcHTML(set){
+  var order = fcOrderFor(set), it = order[fcIdx % order.length];
+  var known = Object.keys(set.items.reduce(function(a,x){ if(S.known[x.w]) a[x.w]=1; return a; },{})).length;
+  return '<div class="card fc">'+
+    (fcBack
+      ? '<div class="pos">'+esc(it.pos)+'</div><div class="en">'+esc(it.en)+'</div><div class="th">'+esc(it.th)+'</div>'+
+        (it.pat!=="—" ? '<div><span class="pat">'+esc(it.pat)+'</span></div>' : '')+
+        '<div class="ex">'+esc(it.ex)+'<br><span style="font-size:.85rem">'+esc(it.exth)+'</span></div>'
+      : '<div class="word">'+esc(it.w)+'</div><div class="pos">'+esc(it.pos)+'</div><div class="lead">แตะการ์ดเพื่อดูความหมาย โครงสร้าง และตัวอย่าง</div>')+
+    '<div class="row" style="justify-content:center;margin-top:8px">'+
+      '<button class="chip" data-fc="prev">‹ ก่อนหน้า</button>'+
+      '<button class="chip" data-fc="again">ยังไม่แม่น</button>'+
+      '<button class="chip" data-fc="known">จำได้แล้ว</button>'+
+      '<button class="chip" data-fc="next">ถัดไป ›</button>'+
+    '</div>'+
+    '<div class="hintflip num">'+(fcIdx+1)+'/'+order.length+' · จำได้แล้ว '+known+'</div>'+
+  '</div>';
+}
+function listHTML(set){
+  return '<div class="card pad0"><div class="scroll"><table><thead><tr><th>คำ</th><th>ความหมาย</th><th>โครงสร้าง</th><th>ตัวอย่าง</th></tr></thead><tbody>'+
+    set.items.map(function(it){ return '<tr>'+
+      '<td><b style="font-family:var(--display)">'+esc(it.w)+'</b><div class="lead" style="font-size:.8rem;font-style:italic">'+esc(it.pos)+'</div>'+(S.known[it.w]?'<span class="badge ac" style="margin-top:4px">จำได้</span>':'')+'</td>'+
+      '<td>'+esc(it.en)+'<div class="lead">'+esc(it.th)+'</div></td>'+
+      '<td>'+(it.pat==="—"?'<span class="lead">—</span>':'<span class="pat" style="font-family:var(--mono);font-size:.82rem">'+esc(it.pat)+'</span>')+'</td>'+
+      '<td>'+esc(it.ex)+'<div class="lead" style="font-size:.84rem">'+esc(it.exth)+'</div></td></tr>'; }).join("")+
+    '</tbody></table></div></div>';
+}
+
+/* =========================================================
+   GRAMMAR
+   ========================================================= */
+var gIdx = 0;
+function renderGrammar(){
+  var g = P.grammar[gIdx];
+  app.innerHTML =
+  '<section class="view">'+
+    '<div class="card">'+
+      '<p class="eyebrow">Grammar · 30 ข้อในข้อสอบ</p>'+
+      '<h1 style="font-size:1.35rem;margin-top:6px">'+esc(g.title)+' <span class="unitpill">Unit '+g.unit+'</span></h1>'+
+      '<p class="lead" style="margin-top:4px">'+esc(g.th)+'</p>'+
+      '<div class="row" style="margin-top:12px">'+ P.grammar.map(function(x,i){
+        return '<button class="chip" aria-pressed="'+(i===gIdx)+'" data-g="'+i+'">'+x.unit+' · '+esc(x.title)+'</button>'; }).join("")+'</div>'+
+      '<div class="note" style="margin-top:12px">'+esc(g.lead)+'</div>'+
+      '<button class="btn ghost" style="margin-top:12px;font-size:.85rem;padding:7px 12px" data-practice="'+g.id+'">ทำข้อฝึกหัวข้อนี้ ('+byTopic(g.id).length+' ข้อ)</button>'+
+    '</div>'+
+    g.blocks.map(function(b){
+      if(b.t==="cards") return '<div class="grid g2">'+b.items.map(function(c){
+        return '<div class="card"><p class="eyebrow">'+esc(c.sub)+'</p><h3 style="font-size:1.02rem;margin-top:4px">'+esc(c.h)+'</h3>'+
+          '<p class="lead" style="margin-top:6px">'+esc(c.body)+'</p>'+
+          '<p style="margin-top:8px;font-family:var(--mono);font-size:.86rem">'+esc(c.ex)+'</p>'+
+          '<p class="lead" style="font-size:.85rem">'+esc(c.exth)+'</p></div>'; }).join("")+'</div>';
+      if(b.t==="table") return '<div class="card pad0">'+(b.cap?'<div style="padding:16px 16px 0"><p class="eyebrow">'+esc(b.cap)+'</p></div>':'')+
+        '<div class="scroll"><table style="margin-top:8px"><thead><tr>'+b.head.map(function(h){ return '<th>'+esc(h)+'</th>'; }).join("")+
+        '</tr></thead><tbody>'+b.rows.map(function(r){ return '<tr>'+r.map(function(c){ return '<td>'+esc(c)+'</td>'; }).join("")+'</tr>'; }).join("")+'</tbody></table></div></div>';
+      if(b.t==="trap") return '<div class="trap"><b>EXAM TRAP:</b> '+esc(b.en)+'<div style="margin-top:4px">'+esc(b.th)+'</div></div>';
+      return '<div class="note">'+esc(b.th)+'</div>';
+    }).join("")+
+  '</section>';
+  app.querySelectorAll("[data-g]").forEach(function(b){ b.addEventListener("click", function(){ gIdx=+b.dataset.g; renderGrammar(); }); });
+  app.querySelectorAll("[data-practice]").forEach(function(b){ b.addEventListener("click", function(){
+    drillFilter = {sec:"all", topics:[b.dataset.practice], count:0};
+    go("drill"); setTimeout(function(){ startDrill(buildDrill()); },0);
+  }); });
+}
+
+/* =========================================================
+   READING
+   ========================================================= */
+var rIdx = 0;
+function renderReading(){
+  var r = P.readings[rIdx], seen = r.kind==="seen";
+  app.innerHTML =
+  '<section class="view">'+
+    '<div class="card">'+
+      '<p class="eyebrow">Reading · 20 ข้อ / 4 บท (seen 2 + unseen 2)</p>'+
+      '<h1 style="font-size:1.35rem;margin-top:6px">'+esc(r.title)+' '+(seen?'<span class="unitpill">Unit '+r.unit+'</span> <span class="badge ac">seen</span>':'<span class="badge">unseen</span>')+'</h1>'+
+      '<p class="lead" style="margin-top:4px">'+esc(r.th)+'</p>'+
+      '<div class="row" style="margin-top:12px">'+ P.readings.map(function(x,i){
+        return '<button class="chip" aria-pressed="'+(i===rIdx)+'" data-r="'+i+'">'+esc(x.title)+'</button>'; }).join("")+'</div>'+
+      '<button class="btn ghost" style="margin-top:12px;font-size:.85rem;padding:7px 12px" data-practice="'+r.id+'">ทำคำถามบทนี้ ('+byTopic(r.id).length+' ข้อ)</button>'+
+    '</div>'+
+    (r.big ? '<div class="card"><p class="eyebrow">Big picture</p><p style="margin-top:6px;font-family:var(--display);font-size:1.05rem">'+esc(r.big)+'</p></div>' : '')+
+    (r.strategy ? '<div class="note">กลยุทธ์: '+esc(r.strategy)+'</div>' : '')+
+    (r.paras ? '<div class="card"><div class="passage">'+r.paras.map(function(p,i){
+        return '<div><p><span class="pnum">¶'+(i+1)+'</span>'+esc(p.en)+'</p><p class="thai">'+esc(p.th)+'</p></div>'; }).join("")+'</div></div>' : '')+
+    (r.table ? '<div class="card pad0"><div class="scroll"><table><thead><tr>'+r.table.head.map(function(h){ return '<th>'+esc(h)+'</th>'; }).join("")+
+      '</tr></thead><tbody>'+r.table.rows.map(function(row){ return '<tr>'+row.map(function(c){ return '<td>'+esc(c)+'</td>'; }).join("")+'</tr>'; }).join("")+'</tbody></table></div></div>' : '')+
+    (r.sections ? '<div class="grid g2">'+r.sections.map(function(s){
+      return '<div class="card"><h3 style="font-size:1rem">'+esc(s.h)+'</h3><p class="lead" style="font-size:.85rem;margin-top:2px">'+esc(s.th)+'</p>'+
+        '<p style="margin-top:8px">'+esc(s.main)+'</p>'+
+        '<ul class="lead" style="margin-top:8px;padding-left:18px;display:grid;gap:4px">'+s.ev.map(function(e){ return '<li>'+esc(e)+'</li>'; }).join("")+'</ul>'+
+        (s.trap?'<div class="trap" style="margin-top:10px"><b>กับดัก:</b> '+esc(s.trap)+'</div>':'')+'</div>'; }).join("")+'</div>' : '')+
+    (r.how ? '<div class="card"><p class="eyebrow">วิธีทำคำถามบทนี้</p><ol style="margin-top:8px;padding-left:20px;display:grid;gap:6px">'+
+      r.how.map(function(h){ return '<li>'+esc(h)+'</li>'; }).join("")+'</ol></div>' : '')+
+    '<div class="card"><p class="eyebrow">ชนิดคำถาม Reading ที่ต้องจับให้ได้</p>'+
+      '<div class="scroll"><table style="margin-top:8px"><thead><tr><th>ชนิด</th><th>ต้องทำอะไร</th></tr></thead><tbody>'+
+      [["Main idea","หาใจความที่ครอบคลุมทั้งเรื่อง ไม่ใช่รายละเอียดจุดเดียว"],
+       ["Detail","จับข้อเท็จจริงตรง ๆ หรือข้อความที่ paraphrase"],
+       ["Reference","ย้อนหาว่า it / they / this แทนคำหรือแนวคิดใด"],
+       ["Vocabulary in context","แทนตัวเลือกลงในประโยค แล้วตรวจทั้งความหมายและชนิดคำ"],
+       ["Sequence","ทำเส้นเวลา: ก่อน → เหตุการณ์ → ผล"],
+       ["Cause / Result","ดูทิศทาง: CAUSE → RESULT หรือ RESULT ← CAUSE"],
+       ["Comparison","ตรวจข้อมูลทั้งสองฝ่ายก่อนสรุปว่าเหมือนหรือต่าง"],
+       ["Inference","สรุปจากหลักฐานเท่านั้น เลือกข้อสรุปที่เล็กที่สุดที่ปลอดภัย"]].map(function(x){
+        return '<tr><td><b style="font-family:var(--display)">'+x[0]+'</b></td><td>'+esc(x[1])+'</td></tr>'; }).join("")+
+      '</tbody></table></div>'+
+      '<div class="trap" style="margin-top:12px"><b>กฎตัวลวง:</b> ตัดตัวเลือกที่แรงเกินจริง (always / never / only / proves) ที่เพิ่มข้อมูลเอง หรือที่ตอบคำถามอื่น</div>'+
+    '</div>'+
+  '</section>';
+  app.querySelectorAll("[data-r]").forEach(function(b){ b.addEventListener("click", function(){ rIdx=+b.dataset.r; renderReading(); }); });
+  app.querySelectorAll("[data-practice]").forEach(function(b){ b.addEventListener("click", function(){
+    drillFilter = {sec:"all", topics:[b.dataset.practice], count:0};
+    go("drill"); setTimeout(function(){ startDrill(buildDrill()); },0);
+  }); });
+}
+
+/* =========================================================
+   DRILL (ฝึกทำข้อ — เฉลยทันที)
+   ========================================================= */
+var drillFilter = {sec:"all", topics:[], count:20};
+var run = null; /* {items, i, picks, mode, started, limit} */
+
+function buildDrill(){
+  var pool = Q.filter(function(q){
+    if(drillFilter.sec!=="all" && q.sec!==drillFilter.sec) return false;
+    if(drillFilter.topics.length && drillFilter.topics.indexOf(q.topic)<0) return false;
+    return true;
+  });
+  var list = shuffle(pool);
+  var n = drillFilter.count;
+  return n>0 ? list.slice(0, n) : list;
+}
+function startWrongSet(){
+  var pool = Q.filter(function(q){ var s=stat(q.id); return s.no>0 && s.no>=s.ok; });
+  if(!pool.length){ alert2("ยังไม่มีข้อที่เคยตอบผิดค้างอยู่ — ลองทำชุดคละก่อน"); return; }
+  startDrill(shuffle(pool).slice(0,25));
+}
+function alert2(msg){
+  var d=document.createElement("div");
+  d.className="card"; d.style.cssText="position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:50;box-shadow:var(--shadow);max-width:min(92vw,420px)";
+  d.textContent=msg; document.body.appendChild(d); setTimeout(function(){ d.remove(); }, 2600);
+}
+function startDrill(items){
+  if(!items.length){ alert2("ไม่มีข้อที่ตรงกับตัวกรองนี้"); return; }
+  items = items.map(withShuffledChoices);
+  run = {items:items, i:0, picks:items.map(function(){ return null; }), mode:"drill"};
+  renderDrill();
+}
+function renderDrill(){
+  if(run && run.mode==="drill"){ renderRunner(); return; }
+  var counts = {all:Q.length, vocab:0, grammar:0, reading:0};
+  Q.forEach(function(q){ counts[q.sec]++; });
+  var groups = [
+    {name:"Vocabulary", keys:["ability","sport","cause","difficulty"]},
+    {name:"Grammar", keys:["mwv","perfect","usedto","obligation"]},
+    {name:"Reading — seen (บทอ่านที่เรียนแล้ว)", keys:P.readings.filter(function(r){ return r.kind==="seen"; }).map(function(r){ return r.id; })},
+    {name:"Reading — unseen (บทอ่านใหม่)", keys:P.readings.filter(function(r){ return r.kind==="unseen"; }).map(function(r){ return r.id; })}
+  ];
+  app.innerHTML =
+  '<section class="view">'+
+    '<div class="card">'+
+      '<p class="eyebrow">ฝึกทำข้อ · เฉลยทันทีพร้อมเหตุผลและจุดหลอก</p>'+
+      '<h1 style="font-size:1.35rem;margin-top:6px">เลือกชุดที่จะฝึก</h1>'+
+      '<p class="lead" style="margin-top:4px">คลังมี '+Q.length+' ข้อ — Vocabulary '+counts.vocab+' · Grammar '+counts.grammar+' · Reading '+counts.reading+'</p>'+
+      '<div class="row" style="margin-top:12px">'+
+        ['all','vocab','grammar','reading'].map(function(k){
+          return '<button class="chip" aria-pressed="'+(drillFilter.sec===k)+'" data-sec="'+k+'">'+(k==="all"?"ทุกส่วน":secLabel(k))+' ('+counts[k]+')</button>'; }).join("")+
+      '</div>'+
+      '<div class="row" style="margin-top:8px">จำนวนข้อ: '+
+        [10,20,30,0].map(function(n){ return '<button class="chip" aria-pressed="'+(drillFilter.count===n)+'" data-count="'+n+'">'+(n?n:"ทั้งหมด")+'</button>'; }).join("")+
+      '</div>'+
+      '<div class="row" style="margin-top:14px"><button class="btn" id="startdrill">เริ่มฝึก</button>'+
+        '<button class="btn ghost" id="startwrong">ทบทวนข้อที่เคยผิด</button>'+
+        (drillFilter.topics.length?'<button class="btn ghost" id="clrtopics">ล้างหัวข้อที่เลือก ('+drillFilter.topics.length+')</button>':'')+
+      '</div>'+
+    '</div>'+
+    groups.map(function(g){
+      return '<div class="card"><p class="eyebrow">'+g.name+'</p><div class="row" style="margin-top:10px">'+
+        g.keys.map(function(k){ var s=topicScore(k);
+          return '<button class="chip" aria-pressed="'+(drillFilter.topics.indexOf(k)>=0)+'" data-topic="'+k+'">'+esc(TOPICS[k])+
+            ' <span class="num" style="opacity:.7">'+s.size+(s.pct!==null?' · '+s.pct+'%':'')+'</span></button>'; }).join("")+
+      '</div></div>';
+    }).join("")+
+  '</section>';
+  app.querySelectorAll("[data-sec]").forEach(function(b){ b.addEventListener("click", function(){ drillFilter.sec=b.dataset.sec; renderDrill(); }); });
+  app.querySelectorAll("[data-count]").forEach(function(b){ b.addEventListener("click", function(){ drillFilter.count=+b.dataset.count; renderDrill(); }); });
+  app.querySelectorAll("[data-topic]").forEach(function(b){ b.addEventListener("click", function(){
+    var k=b.dataset.topic, i=drillFilter.topics.indexOf(k);
+    if(i<0) drillFilter.topics.push(k); else drillFilter.topics.splice(i,1);
+    renderDrill();
+  }); });
+  var c=document.getElementById("clrtopics"); if(c) c.addEventListener("click", function(){ drillFilter.topics=[]; renderDrill(); });
+  document.getElementById("startdrill").addEventListener("click", function(){ startDrill(buildDrill()); });
+  document.getElementById("startwrong").addEventListener("click", startWrongSet);
+}
+
+/* ---------- shared runner (drill + mock) ---------- */
+/* ไฮไลต์ประโยคหลักฐานในบทอ่าน: escape ก่อน แล้วจึงครอบ <mark> เฉพาะช่วงที่ตรงกัน */
+function hlText(txt, hl){
+  var e = esc(txt);
+  if(!hl) return e;
+  var h = esc(hl), i = e.indexOf(h);
+  if(i < 0) return e;
+  return e.slice(0,i) + '<mark>' + e.slice(i, i+h.length) + '</mark>' + e.slice(i+h.length);
+}
+function passageHTML(topic, hl, open){
+  var r = reading(topic); if(!r) return "";
+  if(open === undefined) open = hl ? true : r.kind==="unseen";
+  var body;
+  if(r.paras){
+    body = r.paras.map(function(p,i){
+      return '<div><p><span class="pnum">¶'+(i+1)+'</span>'+hlText(p.en,hl)+'</p><p class="thai">'+hlText(p.th,hl)+'</p></div>'; }).join("");
+  } else {
+    body = (r.table ? '<div class="scroll"><table><thead><tr>'+r.table.head.map(function(h){ return '<th>'+esc(h)+'</th>'; }).join("")+
+        '</tr></thead><tbody>'+r.table.rows.map(function(row){ return '<tr>'+row.map(function(c){ return '<td>'+hlText(c,hl)+'</td>'; }).join("")+'</tr>'; }).join("")+
+        '</tbody></table></div>' : '')+
+      (r.sections||[]).map(function(s){
+        return '<div><p><b>'+hlText(s.h,hl)+'</b></p><p class="thai">'+hlText(s.th,hl)+'</p><p>'+hlText(s.main,hl)+'</p>'+
+          '<ul class="thai">'+(s.ev||[]).map(function(e){ return '<li>'+hlText(e,hl)+'</li>'; }).join("")+'</ul>'+
+          (s.trap ? '<p class="thai">กับดัก: '+hlText(s.trap,hl)+'</p>' : '')+'</div>'; }).join("");
+  }
+  return '<details'+(open?" open":"")+' style="margin-top:12px"><summary>'+(r.kind==="unseen"?'บทอ่าน':'สรุปหลักฐานของบทอ่าน')+': '+esc(r.title)+
+    (hl?' · ไฮไลต์คือหลักฐานของข้อนี้':'')+'</summary>'+
+    '<div class="passage" style="margin-top:8px">'+body+'</div></details>';
+}
+function renderRunner(){
+  var mock = run.mode==="mock";
+  var q = run.items[run.i], pick = run.picks[run.i], answered = pick!==null;
+  var showKey = answered && !mock;
+  app.innerHTML =
+  '<section class="view">'+
+    '<div class="card">'+
+      '<div class="qmeta">'+
+        '<b class="num" style="color:var(--ink)">ข้อ '+(run.i+1)+' / '+run.items.length+'</b>'+
+        '<span class="badge'+(q.sec==="reading"?'':' ac')+'">'+secLabel(q.sec)+'</span>'+
+        '<span class="unitpill">'+esc(q.unit==="—"?"unseen":"Unit "+q.unit)+'</span>'+
+        '<span>'+esc(TOPICS[q.topic]||"")+'</span>'+
+        (q.src==="extra"?'<span class="badge">extra</span>':'')+
+        '<span class="spacer"></span>'+
+        (mock?'<span class="timer" id="clock">—</span>':'')+
+      '</div>'+
+      (q.sec==="reading"?passageHTML(q.topic, showKey?q.hl:null):"")+
+      '<p class="qtext">'+esc(q.q)+'</p>'+
+      '<p class="qth">'+esc(q.th)+'</p>'+
+      '<div class="opts">'+ q.c.map(function(c,i){
+        var s = "";
+        if(showKey){ if(i===q.a) s="ok"; else if(i===pick) s="bad"; }
+        else if(pick===i) s="pick";
+        return '<button class="opt" data-opt="'+i+'"'+(s?' data-s="'+s+'"':'')+(showKey?' disabled':'')+'>'+
+          '<kbd>'+"ABCD"[i]+'</kbd><span>'+esc(c)+'</span></button>'; }).join("")+
+      '</div>'+
+      (showKey ? '<div class="explain">'+
+        '<p class="verdict '+(pick===q.a?'ok':'bad')+'">'+(pick===q.a?'ถูกต้อง':'ยังไม่ถูก — คำตอบคือ '+"ABCD"[q.a]+'. '+esc(q.c[q.a]))+'</p>'+
+        '<div><p class="k">ทำไมถูก</p><p>'+esc(q.why)+'</p></div>'+
+        '<div><p class="k">คำใบ้ในโจทย์</p><p>'+esc(q.clue)+'</p></div>'+
+        '<div><p class="k">ตัวลวงที่ต้องระวัง</p><p>'+esc(q.trap)+'</p></div>'+
+      '</div>' : '')+
+      '<div class="pager">'+
+        '<button class="btn ghost" data-nav="prev"'+(run.i===0?' disabled':'')+'>‹ ย้อน</button>'+
+        '<div class="row">'+
+          (mock? '<button class="btn" id="submitmock">ส่งคำตอบ ('+run.picks.filter(function(p){return p!==null;}).length+'/'+run.items.length+')</button>'
+               : '<button class="btn ghost" data-nav="quit">ออกจากชุดนี้</button>')+
+          '<button class="btn" data-nav="next"'+(run.i===run.items.length-1?' disabled':'')+'>ถัดไป ›</button>'+
+        '</div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="card"><p class="eyebrow">กระดาษคำตอบ</p><div class="sheet" style="margin-top:10px">'+
+      run.items.map(function(x,i){
+        var p=run.picks[i], res="";
+        if(!mock && p!==null) res = p===x.a?"ok":"bad";
+        return '<button data-jump="'+i+'" data-done="'+(p!==null?1:0)+'"'+(res?' data-res="'+res+'"':'')+(i===run.i?' aria-current="true"':'')+'>'+(i+1)+'</button>'; }).join("")+
+    '</div></div>'+
+  '</section>';
+
+  app.querySelectorAll("[data-opt]").forEach(function(b){ b.addEventListener("click", function(){
+    var i=+b.dataset.opt;
+    if(!mock){ if(run.picks[run.i]!==null) return; run.picks[run.i]=i; record(q.id, i===q.a); }
+    else { run.picks[run.i]=i; }
+    renderRunner();
+    if(mock && run.i<run.items.length-1) setTimeout(function(){ run.i++; renderRunner(); }, 140);
+  }); });
+  app.querySelectorAll("[data-nav]").forEach(function(b){ b.addEventListener("click", function(){
+    var k=b.dataset.nav;
+    if(k==="prev" && run.i>0) run.i--;
+    else if(k==="next" && run.i<run.items.length-1) run.i++;
+    else if(k==="quit"){ finishDrill(); return; }
+    renderRunner();
+  }); });
+  app.querySelectorAll("[data-jump]").forEach(function(b){ b.addEventListener("click", function(){ run.i=+b.dataset.jump; renderRunner(); }); });
+  var sm=document.getElementById("submitmock"); if(sm) sm.addEventListener("click", submitMock);
+  if(mock) tick();
+}
+function finishDrill(){
+  var done = run.picks.filter(function(p){ return p!==null; }).length;
+  var right = run.picks.filter(function(p,i){ return p===run.items[i].a; }).length;
+  var items = run.items, picks = run.picks;
+  run = null;
+  app.innerHTML =
+  '<section class="view"><div class="card">'+
+    '<p class="eyebrow">สรุปชุดฝึก</p>'+
+    '<h1 style="font-size:1.6rem;margin-top:6px" class="num">'+right+' / '+done+' ข้อที่ทำ</h1>'+
+    '<p class="lead">ทั้งชุดมี '+items.length+' ข้อ</p>'+
+    '<div class="row" style="margin-top:14px"><button class="btn" id="again">ฝึกชุดใหม่</button>'+
+      '<button class="btn ghost" id="wrongnow">ทบทวนข้อที่ผิดในชุดนี้</button></div>'+
+  '</div>'+
+  (picks.some(function(p,i){ return p!==null && p!==items[i].a; }) ?
+   '<div class="card"><p class="eyebrow">ข้อที่ตอบผิด</p><div class="grid" style="margin-top:10px">'+
+    items.map(function(x,i){ if(picks[i]===null || picks[i]===x.a) return "";
+      return '<div style="border-top:1px solid var(--line);padding-top:10px"><p style="font-weight:500">'+esc(x.q)+'</p>'+
+        '<p class="lead" style="font-size:.86rem">'+esc(x.th)+'</p>'+
+        '<p style="margin-top:6px"><span class="badge" style="background:var(--bad-soft);color:var(--bad)">คุณตอบ</span> '+esc(x.c[picks[i]])+'</p>'+
+        '<p><span class="badge" style="background:var(--ok-soft);color:var(--ok)">คำตอบ</span> '+esc(x.c[x.a])+'</p>'+
+        '<p class="lead" style="margin-top:6px">'+esc(x.why)+'</p>'+
+        (x.sec==="reading"?passageHTML(x.topic, x.hl, false):"")+'</div>'; }).join("")+
+   '</div></div>' : '')+
+  '</section>';
+  document.getElementById("again").addEventListener("click", renderDrill);
+  document.getElementById("wrongnow").addEventListener("click", function(){
+    var w = items.filter(function(x,i){ return picks[i]!==null && picks[i]!==x.a; });
+    if(!w.length){ alert2("ชุดนี้ไม่มีข้อที่ผิด"); return; }
+    startDrill(shuffle(w));
+  });
+}
+
+/* =========================================================
+   MOCK EXAM
+   ========================================================= */
+var LIMIT = 80*60*1000;
+/* เลือกข้อที่ “สดใหม่” ก่อน: เลี่ยงข้อที่เพิ่งออกในสองรอบล่าสุด และข้อที่ทำถูกบ่อยแล้ว */
+function pickFresh(pool, n){
+  return pool.map(function(q){
+    var s = stat(q.id);
+    return {q:q, w:(S.recent[q.id]||0)*100 + (s.ok+s.no)*3 + s.ok*2 + Math.random()*5};
+  }).sort(function(a,b){ return a.w-b.w; }).slice(0,n).map(function(x){ return x.q; });
+}
+function markUsed(items, passages){
+  Object.keys(S.recent).forEach(function(k){ if(--S.recent[k]<=0) delete S.recent[k]; });
+  Object.keys(S.recentP).forEach(function(k){ if(--S.recentP[k]<=0) delete S.recentP[k]; });
+  items.forEach(function(q){ S.recent[q.id]=2; });
+  (passages||[]).forEach(function(k){ S.recentP[k]=2; });
+  save();
+}
+function buildMock(){
+  var out = [];
+  ["vocab","grammar"].forEach(function(sec){
+    out = out.concat(pickFresh(Q.filter(function(q){ return q.sec===sec; }), 30));
+  });
+  var groups = {};
+  Q.filter(function(q){ return q.sec==="reading"; }).forEach(function(q){ (groups[q.topic]=groups[q.topic]||[]).push(q); });
+  function pickGroups(kind, n){
+    return Object.keys(groups).filter(function(k){ var r=reading(k); return r && r.kind===kind && groups[k].length>=5; })
+      .map(function(k){ return {k:k, w:(S.recentP[k]||0)*10 + Math.random()}; })
+      .sort(function(a,b){ return a.w-b.w; }).slice(0,n).map(function(x){ return x.k; });
+  }
+  var chosen = pickGroups("seen",2).concat(pickGroups("unseen",2));
+  chosen.forEach(function(k){ out = out.concat(shuffle(pickFresh(groups[k], 5))); });
+  markUsed(out, chosen);
+  return out;
+}
+function renderMock(){
+  if(run && run.mode==="mock"){ renderRunner(); return; }
+  var hist = S.mocks.slice(-5).reverse();
+  app.innerHTML =
+  '<section class="view">'+
+    '<div class="card">'+
+      '<p class="eyebrow">สอบจำลอง</p>'+
+      '<h1 style="font-size:1.5rem;margin-top:6px">80 ข้อ · 80 นาที · ไม่เฉลยจนส่ง</h1>'+
+      '<p class="lead" style="margin-top:6px">สัดส่วนตามแนวข้อสอบจริง: Vocabulary 30 · Grammar 30 · Reading 20 — ส่วน Reading สุ่มมาเป็น “บท” 4 บท (seen 2 + unseen 2) บทละ 5 ข้อ</p>'+
+      '<p class="lead" style="margin-top:6px">คลังมี '+Q.length+' ข้อ (Vocabulary '+Q.filter(function(q){return q.sec==="vocab";}).length+' · Grammar '+Q.filter(function(q){return q.sec==="grammar";}).length+' · Reading '+Q.filter(function(q){return q.sec==="reading";}).length+' จาก '+P.readings.length+' บทอ่าน) และระบบจะเลี่ยงข้อกับบทอ่านที่เพิ่งออกในสองรอบล่าสุด จึงสอบซ้ำได้โดยแทบไม่เจอข้อเดิม</p>'+
+      '<div class="mapbar" style="margin-top:14px">'+P.meta.weights.map(function(w,i){ return '<div class="s'+i+'" style="flex:'+w.items+'">'+w.label+' '+w.items+'</div>'; }).join("")+'</div>'+
+      '<div class="row" style="margin-top:16px"><button class="btn" id="startmock">เริ่มสอบจำลอง</button></div>'+
+      '<div class="trap" style="margin-top:14px"><b>วิธีใช้ให้ได้ผล:</b> ทำให้จบในรอบเดียวโดยไม่เปิดดูเฉลย แล้วค่อยอ่านผลแยกตามส่วนและหัวข้อ เพื่อรู้ว่าต้องกลับไปซ่อมจุดไหน</div>'+
+    '</div>'+
+    (hist.length ? '<div class="card pad0"><div style="padding:16px 16px 0"><p class="eyebrow">ผลย้อนหลัง</p></div>'+
+      '<div class="scroll"><table style="margin-top:8px"><thead><tr><th>วันที่</th><th>คะแนน</th><th>Vocab</th><th>Grammar</th><th>Reading</th><th>เวลา</th></tr></thead><tbody>'+
+      hist.map(function(m){ return '<tr><td class="num">'+esc(m.date)+'</td><td class="num"><b>'+m.score+'/'+m.total+'</b></td>'+
+        '<td class="num">'+m.by.vocab+'/30</td><td class="num">'+m.by.grammar+'/30</td><td class="num">'+m.by.reading+'/20</td><td class="num">'+esc(m.time)+'</td></tr>'; }).join("")+
+      '</tbody></table></div></div>' : '')+
+  '</section>';
+  document.getElementById("startmock").addEventListener("click", function(){
+    var items = buildMock().map(withShuffledChoices);
+    run = {items:items, i:0, picks:items.map(function(){ return null; }), mode:"mock", started:Date.now()};
+    renderRunner();
+  });
+}
+function fmt(ms){ ms=Math.max(0,ms); var s=Math.floor(ms/1000); return (Math.floor(s/60))+":"+String(s%60).padStart(2,"0"); }
+function tick(){
+  var el = document.getElementById("clock"); if(!el || !run || run.mode!=="mock") return;
+  var left = LIMIT - (Date.now()-run.started);
+  el.textContent = fmt(left)+" เหลือ";
+  el.dataset.low = left < 5*60*1000 ? "1" : "0";
+  if(left<=0){ submitMock(); return; }
+  clearTimeout(tick._t); tick._t = setTimeout(tick, 1000);
+}
+function submitMock(){
+  clearTimeout(tick._t);
+  var items = run.items, picks = run.picks;
+  var by = {vocab:0, grammar:0, reading:0}, tried = {vocab:0, grammar:0, reading:0}, score = 0;
+  var topics = {};
+  items.forEach(function(x,i){
+    var right = picks[i]===x.a;
+    if(picks[i]!==null) record(x.id, right);
+    tried[x.sec]++;
+    if(right){ score++; by[x.sec]++; }
+    var t = topics[x.topic] = topics[x.topic] || {ok:0,n:0};
+    t.n++; if(right) t.ok++;
+  });
+  var used = fmt(Date.now()-run.started > LIMIT ? LIMIT : Date.now()-run.started);
+  var d = new Date();
+  S.mocks.push({date:d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"),
+    score:score, total:items.length, by:by, time:used});
+  save();
+  var wrong = items.filter(function(x,i){ return picks[i]!==x.a; });
+  var picksCopy = picks.slice();
+  run = null;
+
+  app.innerHTML =
+  '<section class="view">'+
+    '<div class="card">'+
+      '<p class="eyebrow">ผลสอบจำลอง · ใช้เวลา '+used+'</p>'+
+      '<h1 style="font-size:2rem;margin-top:6px" class="num">'+score+' / '+items.length+'</h1>'+
+      '<p class="lead">คิดเป็น '+Math.round(score/items.length*100)+'% ของข้อสอบ 80 ข้อ</p>'+
+      '<div class="grid g3" style="margin-top:16px">'+
+        ["vocab","grammar","reading"].map(function(k){ var full = k==="reading"?20:30;
+          return '<div><div class="row" style="justify-content:space-between"><b style="font-family:var(--display)">'+secLabel(k)+'</b>'+
+            '<span class="num">'+by[k]+'/'+full+'</span></div><div class="meter" style="margin-top:6px"><i style="width:'+Math.round(by[k]/full*100)+'%"></i></div></div>'; }).join("")+
+      '</div>'+
+      '<div class="row" style="margin-top:16px"><button class="btn" id="remock">สอบจำลองอีกครั้ง</button>'+
+        (wrong.length?'<button class="btn ghost" id="fixwrong">ซ่อมข้อที่ผิด '+wrong.length+' ข้อ</button>':'')+'</div>'+
+    '</div>'+
+    '<div class="card pad0"><div style="padding:16px 16px 0"><p class="eyebrow">แยกตามหัวข้อ</p></div>'+
+      '<div class="scroll"><table style="margin-top:8px"><thead><tr><th>หัวข้อ</th><th>ถูก</th><th>สัดส่วน</th></tr></thead><tbody>'+
+      Object.keys(topics).sort(function(a,b){ return topics[a].ok/topics[a].n - topics[b].ok/topics[b].n; }).map(function(k){ var t=topics[k];
+        var pct=Math.round(t.ok/t.n*100);
+        return '<tr><td>'+esc(TOPICS[k]||k)+'</td><td class="num">'+t.ok+'/'+t.n+'</td>'+
+          '<td><div class="meter"><i style="width:'+pct+'%;background:'+(pct<60?'var(--bad)':'var(--accent)')+'"></i></div></td></tr>'; }).join("")+
+      '</tbody></table></div></div>'+
+    (wrong.length ? '<div class="card"><p class="eyebrow">เฉลยข้อที่ผิด</p><div class="grid" style="margin-top:10px">'+
+      items.map(function(x,i){ if(picksCopy[i]===x.a) return "";
+        return '<div style="border-top:1px solid var(--line);padding-top:10px">'+
+          '<div class="qmeta"><span class="num">ข้อ '+(i+1)+'</span><span class="badge">'+secLabel(x.sec)+'</span><span>'+esc(TOPICS[x.topic]||"")+'</span></div>'+
+          '<p style="font-weight:500;margin-top:6px">'+esc(x.q)+'</p><p class="lead" style="font-size:.86rem">'+esc(x.th)+'</p>'+
+          '<p style="margin-top:6px"><span class="badge" style="background:var(--bad-soft);color:var(--bad)">คุณตอบ</span> '+(picksCopy[i]===null?'ไม่ได้ตอบ':esc(x.c[picksCopy[i]]))+'</p>'+
+          '<p><span class="badge" style="background:var(--ok-soft);color:var(--ok)">คำตอบ</span> '+esc(x.c[x.a])+'</p>'+
+          '<p class="lead" style="margin-top:6px"><b>เพราะ:</b> '+esc(x.why)+'</p>'+
+          '<p class="lead"><b>ตัวลวง:</b> '+esc(x.trap)+'</p>'+
+          (x.sec==="reading"?passageHTML(x.topic, x.hl, false):"")+'</div>'; }).join("")+
+      '</div></div>' : '')+
+  '</section>';
+  document.getElementById("remock").addEventListener("click", renderMock);
+  var f=document.getElementById("fixwrong"); if(f) f.addEventListener("click", function(){ go("drill"); setTimeout(function(){ startDrill(shuffle(wrong)); },0); });
+}
+
+/* ---------- keyboard ---------- */
+document.addEventListener("keydown", function(e){
+  if(!run) return;
+  var k = e.key.toLowerCase();
+  var map = {a:0,b:1,c:2,d:3,1:0,2:1,3:2,4:3};
+  if(k in map){ var b = app.querySelector('[data-opt="'+map[k]+'"]'); if(b && !b.disabled) b.click(); }
+  if(k==="arrowright"){ var n=app.querySelector('[data-nav="next"]'); if(n && !n.disabled) n.click(); }
+  if(k==="arrowleft"){ var p=app.querySelector('[data-nav="prev"]'); if(p && !p.disabled) p.click(); }
+});
+
+go(["home","vocab","grammar","reading","drill","mock"].indexOf(S.tab)>=0 ? S.tab : "home");
+})();
+</script>
